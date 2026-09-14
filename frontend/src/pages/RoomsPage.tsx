@@ -16,7 +16,8 @@ const roomSchema = z.object({
   base_price: z.coerce.number().min(0),
 })
 
-type RoomInput = z.infer<typeof roomSchema>
+type RoomInput = z.input<typeof roomSchema>
+type RoomOutput = z.output<typeof roomSchema>
 
 const statusStyle: Record<Room['status'], string> = {
   AVAILABLE: 'bg-emerald-100 text-emerald-700',
@@ -37,12 +38,12 @@ export function RoomsPage() {
     enabled: Boolean(property),
     queryFn: () => api<DataResponse<Room[]>>('/rooms?property_id=' + property!.id),
   })
-  const form = useForm<RoomInput>({
+  const form = useForm<RoomInput, unknown, RoomOutput>({
     resolver: zodResolver(roomSchema),
     defaultValues: { name: '', code: '', max_guests: 2, max_adults: 2, max_children: 0, base_price: 85 },
   })
   const createRoom = useMutation({
-    mutationFn: (values: RoomInput) =>
+    mutationFn: (values: RoomOutput) =>
       api<DataResponse<Room>>('/rooms', {
         method: 'POST',
         body: {
