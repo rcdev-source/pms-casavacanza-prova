@@ -5,9 +5,11 @@ use App\Http\Controllers\Api\V1\AvailabilityBlockController;
 use App\Http\Controllers\Api\V1\AvailabilityController;
 use App\Http\Controllers\Api\V1\CalendarController;
 use App\Http\Controllers\Api\V1\CleaningTaskController;
+use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\GuestController;
 use App\Http\Controllers\Api\V1\GuestDocumentController;
 use App\Http\Controllers\Api\V1\MaintenanceTicketController;
+use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\PreCheckInController;
 use App\Http\Controllers\Api\V1\PricingRuleController;
@@ -28,6 +30,10 @@ Route::prefix('v1')->group(function (): void {
 
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::get('/auth/me', [AuthController::class, 'show']);
+        Route::get('/dashboard', DashboardController::class);
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::post('/notifications/read-all', [NotificationController::class, 'readAll']);
+        Route::post('/notifications/{notification}/read', [NotificationController::class, 'read']);
         Route::delete('/auth/logout', [AuthController::class, 'destroy']);
 
         Route::apiResource('properties', PropertyController::class)->only(['index', 'store', 'show', 'update']);

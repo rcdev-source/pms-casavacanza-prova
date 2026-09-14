@@ -79,4 +79,9 @@ class Property extends Model
     {
         return $this->hasMany(MaintenanceTicket::class);
     }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
 }
