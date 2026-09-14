@@ -42,6 +42,6 @@ class Room extends Model
 
     public function amenities(): BelongsToMany
     {
-        return $this->belongsToMany(RoomAmenity::class)->withTimestamps();
+        return $this->belongsToMany(RoomAmenity::class, 'room_amenity_room')->withTimestamps();
     }
 }
