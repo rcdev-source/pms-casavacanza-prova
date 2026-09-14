@@ -39,9 +39,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
+    public function properties(): BelongsToMany
+    {
+        return $this->belongsToMany(Property::class)->withTimestamps();
+    }
+
     public function hasRole(string $key): bool
     {
         return $this->roles()->where('key', $key)->exists();
+    }
+
+    public function belongsToProperty(Property|string $property): bool
+    {
+        $propertyId = $property instanceof Property ? $property->id : $property;
+
+        return $this->properties()->whereKey($propertyId)->exists();
     }
 
     public function isActive(): bool
