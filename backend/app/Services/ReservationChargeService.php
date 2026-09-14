@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\PaymentStatus;
+use App\Enums\ReservationStatus;
 use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\ReservationService as ReservationCharge;
@@ -18,8 +19,8 @@ class ReservationChargeService
             $locked = Reservation::query()->whereKey($reservation->id)->lockForUpdate()->firstOrFail();
 
             if (in_array($locked->status, [
-                \App\Enums\ReservationStatus::CANCELLED,
-                \App\Enums\ReservationStatus::COMPLETED,
+                ReservationStatus::CANCELLED,
+                ReservationStatus::COMPLETED,
             ], true)) {
                 throw ValidationException::withMessages(['reservation' => ['Non è possibile aggiungere addebiti in questo stato.']]);
             }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\PaymentStatus;
+use App\Enums\ReservationStatus;
 use App\Models\Payment;
 use App\Models\Reservation;
 use App\Models\User;
@@ -15,9 +16,11 @@ class PaymentLedgerService
     {
         return DB::transaction(function () use ($reservation, $data, $user): Payment {
             $locked = Reservation::query()->whereKey($reservation->id)->lockForUpdate()->firstOrFail();
-            $status = isset($data['status'])\n                ? PaymentStatus::from($data['status'])\n                : PaymentStatus::COMPLETED;
+            $status = isset($data['status'])
+                ? PaymentStatus::from($data['status'])
+                : PaymentStatus::COMPLETED;
 
-            if ($locked->status === \App\Enums\ReservationStatus::CANCELLED) {
+            if ($locked->status === ReservationStatus::CANCELLED) {
                 throw ValidationException::withMessages(['reservation' => ['Non è possibile registrare pagamenti su una prenotazione annullata.']]);
             }
 
