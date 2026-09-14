@@ -40,4 +40,9 @@ class Guest extends Model
     {
         return $this->hasMany(GuestDocument::class);
     }
+
+    public function reservations(): BelongsToMany
+    {
+        return $this->belongsToMany(Reservation::class)->withPivot('is_primary')->withTimestamps();
+    }
 }
