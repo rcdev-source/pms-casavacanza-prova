@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\PreCheckInController;
 use App\Http\Controllers\Api\V1\PricingRuleController;
 use App\Http\Controllers\Api\V1\PropertyController;
+use App\Http\Controllers\Api\V1\ReportController;
 use App\Http\Controllers\Api\V1\ReservationChargeController;
 use App\Http\Controllers\Api\V1\ReservationController;
 use App\Http\Controllers\Api\V1\RoomController;
@@ -31,6 +32,8 @@ Route::prefix('v1')->group(function (): void {
     Route::middleware('auth:sanctum')->group(function (): void {
         Route::get('/auth/me', [AuthController::class, 'show']);
         Route::get('/dashboard', DashboardController::class);
+        Route::get('/reports/financial', [ReportController::class, 'financial']);
+        Route::get('/reports/reservations.csv', [ReportController::class, 'reservationsCsv']);
         Route::get('/notifications', [NotificationController::class, 'index']);
         Route::post('/notifications/read-all', [NotificationController::class, 'readAll']);
         Route::post('/notifications/{notification}/read', [NotificationController::class, 'read']);

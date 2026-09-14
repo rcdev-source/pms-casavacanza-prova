@@ -2,13 +2,18 @@
 
 namespace App\Providers;
 
+use App\Models\AvailabilityBlock;
+use App\Models\CheckIn;
+use App\Models\CheckOut;
 use App\Models\CleaningTask;
 use App\Models\Guest;
 use App\Models\MaintenanceTicket;
 use App\Models\Payment;
 use App\Models\Property;
 use App\Models\Reservation;
+use App\Models\ReservationService;
 use App\Models\Room;
+use App\Observers\AuditLogObserver;
 use App\Observers\OperationalNotificationObserver;
 use App\Policies\CleaningTaskPolicy;
 use App\Policies\GuestPolicy;
@@ -42,6 +47,17 @@ class AppServiceProvider extends ServiceProvider
         CleaningTask::observe(OperationalNotificationObserver::class);
         MaintenanceTicket::observe(OperationalNotificationObserver::class);
         Payment::observe(OperationalNotificationObserver::class);
+
+        Property::observe(AuditLogObserver::class);
+        Room::observe(AuditLogObserver::class);
+        Reservation::observe(AuditLogObserver::class);
+        Payment::observe(AuditLogObserver::class);
+        ReservationService::observe(AuditLogObserver::class);
+        CheckIn::observe(AuditLogObserver::class);
+        CheckOut::observe(AuditLogObserver::class);
+        CleaningTask::observe(AuditLogObserver::class);
+        MaintenanceTicket::observe(AuditLogObserver::class);
+        AvailabilityBlock::observe(AuditLogObserver::class);
 
         RateLimiter::for('login', fn (Request $request): Limit => Limit::perMinute(5)->by(
             strtolower((string) $request->input('email')).'|'.$request->ip()
