@@ -12,8 +12,11 @@ class Role extends Model
     use HasFactory, HasUlids;
 
     public const ADMIN = 'ADMIN';
+
     public const RECEPTION = 'RECEPTION';
+
     public const CLEANING = 'CLEANING';
+
     public const MAINTENANCE = 'MAINTENANCE';
 
     protected $fillable = ['key', 'name'];
