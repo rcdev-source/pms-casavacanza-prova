@@ -69,4 +69,14 @@ class Property extends Model
     {
         return $this->hasMany(AvailabilityBlock::class);
     }
+
+    public function cleaningTasks(): HasMany
+    {
+        return $this->hasMany(CleaningTask::class);
+    }
+
+    public function maintenanceTickets(): HasMany
+    {
+        return $this->hasMany(MaintenanceTicket::class);
+    }
 }

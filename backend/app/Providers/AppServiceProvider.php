@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\CleaningTask;
 use App\Models\Guest;
+use App\Models\MaintenanceTicket;
 use App\Models\Property;
 use App\Models\Reservation;
 use App\Models\Room;
+use App\Policies\CleaningTaskPolicy;
 use App\Policies\GuestPolicy;
+use App\Policies\MaintenanceTicketPolicy;
 use App\Policies\PropertyPolicy;
 use App\Policies\ReservationPolicy;
 use App\Policies\RoomPolicy;
@@ -29,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Room::class, RoomPolicy::class);
         Gate::policy(Guest::class, GuestPolicy::class);
         Gate::policy(Reservation::class, ReservationPolicy::class);
+        Gate::policy(CleaningTask::class, CleaningTaskPolicy::class);
+        Gate::policy(MaintenanceTicket::class, MaintenanceTicketPolicy::class);
 
         RateLimiter::for('login', fn (Request $request): Limit => Limit::perMinute(5)->by(
             strtolower((string) $request->input('email')).'|'.$request->ip()

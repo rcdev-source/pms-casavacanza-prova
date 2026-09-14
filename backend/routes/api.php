@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\AvailabilityBlockController;
 use App\Http\Controllers\Api\V1\AvailabilityController;
 use App\Http\Controllers\Api\V1\CalendarController;
+use App\Http\Controllers\Api\V1\CleaningTaskController;
 use App\Http\Controllers\Api\V1\GuestController;
 use App\Http\Controllers\Api\V1\GuestDocumentController;
+use App\Http\Controllers\Api\V1\MaintenanceTicketController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\PreCheckInController;
 use App\Http\Controllers\Api\V1\PricingRuleController;
@@ -50,5 +52,13 @@ Route::prefix('v1')->group(function (): void {
         Route::post('/reservations/{reservation}/pre-check-in-link', [PreCheckInController::class, 'issue']);
         Route::post('/reservations/{reservation}/check-in', [StayController::class, 'checkIn']);
         Route::post('/reservations/{reservation}/check-out', [StayController::class, 'checkOut']);
+
+        Route::apiResource('cleaning-tasks', CleaningTaskController::class)->only(['index', 'store', 'show']);
+        Route::post('/cleaning-tasks/{cleaningTask}/start', [CleaningTaskController::class, 'start']);
+        Route::post('/cleaning-tasks/{cleaningTask}/complete', [CleaningTaskController::class, 'complete']);
+        Route::apiResource('maintenance-tickets', MaintenanceTicketController::class)->only(['index', 'store', 'show']);
+        Route::post('/maintenance-tickets/{maintenanceTicket}/start', [MaintenanceTicketController::class, 'start']);
+        Route::post('/maintenance-tickets/{maintenanceTicket}/resolve', [MaintenanceTicketController::class, 'resolve']);
+        Route::post('/maintenance-tickets/{maintenanceTicket}/close', [MaintenanceTicketController::class, 'close']);
     });
 });

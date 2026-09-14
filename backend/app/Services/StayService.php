@@ -17,6 +17,7 @@ class StayService
     public function __construct(
         private readonly ReservationStateService $states,
         private readonly ReservationChargeService $charges,
+        private readonly CleaningTaskService $cleaningTasks,
     ) {}
 
     public function checkIn(Reservation $reservation, array $data, User $user): CheckIn
@@ -76,13 +77,16 @@ class StayService
             $locked->save();
             Room::query()->whereKey($locked->room_id)->lockForUpdate()->update(['status' => RoomStatus::DIRTY]);
 
-            return CheckOut::query()->create([
+            $checkOut = CheckOut::query()->create([
                 ...$data,
                 'property_id' => $locked->property_id,
                 'reservation_id' => $locked->id,
                 'completed_at' => now(),
                 'completed_by' => $user->id,
             ]);
+            $this->cleaningTasks->createFromCheckOut($checkOut, $user);
+
+            return $checkOut;
         });
     }
 }
