@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -25,12 +24,12 @@ class CalendarController extends Controller
 
         $rooms = $property->rooms()
             ->with([
-                'reservations' => fn (Builder $query) => $query
+                'reservations' => fn ($query) => $query
                     ->with('primaryGuest')
                     ->where('check_in_date', '<', $to)
                     ->where('check_out_date', '>', $from)
                     ->orderBy('check_in_date'),
-                'availabilityBlocks' => fn (Builder $query) => $query
+                'availabilityBlocks' => fn ($query) => $query
                     ->where('start_date', '<', $to)
                     ->where('end_date', '>', $from)
                     ->orderBy('start_date'),
