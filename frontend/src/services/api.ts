@@ -4,6 +4,22 @@ type RequestOptions = Omit<RequestInit, 'body'> & {
   body?: unknown
 }
 
+type ErrorPayload = {
+  message?: string
+  errors?: Record<string, string[]>
+}
+
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+    readonly errors: Record<string, string[]> = {},
+  ) {
+    super(message)
+    this.name = 'ApiError'
+  }
+}
+
 export async function api<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const token = localStorage.getItem('pms_token')
   const response = await fetch(API_URL + path, {
@@ -22,7 +38,12 @@ export async function api<T>(path: string, options: RequestOptions = {}): Promis
       localStorage.removeItem('pms_token')
     }
 
-    throw new Error('API request failed with status ' + response.status)
+    const payload = (await response.json().catch(() => ({}))) as ErrorPayload
+    throw new ApiError(payload.message ?? 'La richiesta non è riuscita.', response.status, payload.errors)
+  }
+
+  if (response.status === 204) {
+    return undefined as T
   }
 
   return response.json() as Promise<T>

@@ -1,9 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router'
 import { AppLayout } from '../layouts/AppLayout'
+import { CalendarPage } from '../pages/CalendarPage'
 import { DashboardPage } from '../pages/DashboardPage'
 import { GuestDetailPage } from '../pages/GuestDetailPage'
 import { GuestsPage } from '../pages/GuestsPage'
 import { LoginPage } from '../pages/LoginPage'
+import { ReservationDetailPage } from '../pages/ReservationDetailPage'
+import { ReservationFormPage } from '../pages/ReservationFormPage'
+import { ReservationsPage } from '../pages/ReservationsPage'
 import { RoomDetailPage } from '../pages/RoomDetailPage'
 import { RoomsPage } from '../pages/RoomsPage'
 
@@ -23,8 +27,13 @@ export function App() {
         }
       >
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/rooms" element={<RoomsPage />} />
         <Route path="/rooms/:id" element={<RoomDetailPage />} />
+        <Route path="/reservations" element={<ReservationsPage />} />
+        <Route path="/reservations/new" element={<ReservationFormPage />} />
+        <Route path="/reservations/:id/edit" element={<ReservationFormPage />} />
+        <Route path="/reservations/:id" element={<ReservationDetailPage />} />
         <Route path="/guests" element={<GuestsPage />} />
         <Route path="/guests/:id" element={<GuestDetailPage />} />
       </Route>
