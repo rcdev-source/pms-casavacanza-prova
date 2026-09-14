@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+/vendor/
+/backend/vendor/
+/frontend/node_modules/
+/frontend/dist/
+/storage/*.key
+.DS_Store
+.idea/
+.vscode/
