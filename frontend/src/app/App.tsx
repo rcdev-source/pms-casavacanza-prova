@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/LoginPage'
 import { MaintenancePage } from '../pages/MaintenancePage'
 import { PublicPreCheckInPage } from '../pages/PublicPreCheckInPage'
 import { ReservationDetailPage } from '../pages/ReservationDetailPage'
+import { ReportPage } from '../pages/ReportPage'
 import { ReservationFormPage } from '../pages/ReservationFormPage'
 import { ReservationsPage } from '../pages/ReservationsPage'
 import { RoomDetailPage } from '../pages/RoomDetailPage'
@@ -42,6 +43,7 @@ export function App() {
         <Route path="/guests/:id" element={<GuestDetailPage />} />
         <Route path="/cleaning" element={<CleaningPage />} />
         <Route path="/maintenance" element={<MaintenancePage />} />
+        <Route path="/reports" element={<ReportPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>

@@ -21,7 +21,7 @@ use App\Http\Controllers\Api\V1\RoomController;
 use App\Http\Controllers\Api\V1\StayController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function (): void {
+Route::prefix('v1')->middleware('throttle:api')->group(function (): void {
     Route::post('/auth/login', [AuthController::class, 'store'])->middleware('throttle:login');
     Route::get('/public/availability', AvailabilityController::class)->middleware('throttle:public-booking');
     Route::get('/public/pre-check-in/{token}', [PreCheckInController::class, 'show'])

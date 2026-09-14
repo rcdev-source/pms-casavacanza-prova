@@ -59,6 +59,10 @@ class AppServiceProvider extends ServiceProvider
         MaintenanceTicket::observe(AuditLogObserver::class);
         AvailabilityBlock::observe(AuditLogObserver::class);
 
+        RateLimiter::for('api', fn (Request $request): Limit => Limit::perMinute(120)->by(
+            (string) ($request->user()?->id ?? $request->ip())
+        ));
+
         RateLimiter::for('login', fn (Request $request): Limit => Limit::perMinute(5)->by(
             strtolower((string) $request->input('email')).'|'.$request->ip()
         ));

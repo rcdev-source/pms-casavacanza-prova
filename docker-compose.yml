@@ -5,7 +5,7 @@ x-backend: &backend
     context: .
     dockerfile: docker/php/Dockerfile
   working_dir: /var/www/html
-  env_file: .env
+  env_file: backend/.env
   volumes:
     - ./backend:/var/www/html
   depends_on:

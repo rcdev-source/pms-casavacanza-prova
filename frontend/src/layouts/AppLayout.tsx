@@ -8,6 +8,7 @@ const links = [
   { to: '/guests', label: 'Ospiti' },
   { to: '/cleaning', label: 'Pulizie' },
   { to: '/maintenance', label: 'Manutenzione' },
+  { to: '/reports', label: 'Report' },
 ]
 
 export function AppLayout() {
