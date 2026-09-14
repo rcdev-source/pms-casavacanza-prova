@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router'
+import { ReservationOperations } from '../components/ReservationOperations'
 import { api } from '../services/api'
 import type { DataResponse } from '../types/core'
 import type { Reservation } from '../types/reservation'
@@ -74,7 +75,9 @@ export function ReservationDetailPage() {
             <div className="flex justify-between"><dt className="text-slate-400">Soggiorno</dt><dd>{item.currency} {item.subtotal}</dd></div>
             <div className="flex justify-between"><dt className="text-slate-400">Sconto</dt><dd>- {item.currency} {item.discount}</dd></div>
             <div className="flex justify-between"><dt className="text-slate-400">Imposte</dt><dd>{item.currency} {item.taxes}</dd></div>
+            <div className="flex justify-between"><dt className="text-slate-400">Extra</dt><dd>{item.currency} {item.extras_total}</dd></div>
             <div className="flex justify-between border-t border-slate-700 pt-3 text-lg font-black"><dt>Totale</dt><dd>{item.currency} {item.total}</dd></div>
+            <div className="flex justify-between text-violet-300"><dt>Saldo dovuto</dt><dd className="font-black">{item.currency} {item.balance_due}</dd></div>
           </dl>
         </section>
       </div>
@@ -85,6 +88,15 @@ export function ReservationDetailPage() {
           <p className="mt-2 whitespace-pre-wrap text-slate-600">{item.notes}</p>
         </section>
       ) : null}
+
+      <ReservationOperations
+        reservation={item}
+        onChanged={() => {
+          void queryClient.invalidateQueries({ queryKey: ['reservation', id] })
+          void queryClient.invalidateQueries({ queryKey: ['reservations'] })
+          void queryClient.invalidateQueries({ queryKey: ['calendar'] })
+        }}
+      />
 
       {canCancel ? (
         <section className="mt-7">

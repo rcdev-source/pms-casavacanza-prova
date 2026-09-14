@@ -5,6 +5,7 @@ import { DashboardPage } from '../pages/DashboardPage'
 import { GuestDetailPage } from '../pages/GuestDetailPage'
 import { GuestsPage } from '../pages/GuestsPage'
 import { LoginPage } from '../pages/LoginPage'
+import { PublicPreCheckInPage } from '../pages/PublicPreCheckInPage'
 import { ReservationDetailPage } from '../pages/ReservationDetailPage'
 import { ReservationFormPage } from '../pages/ReservationFormPage'
 import { ReservationsPage } from '../pages/ReservationsPage'
@@ -19,6 +20,7 @@ export function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/pre-check-in/:token" element={<PublicPreCheckInPage />} />
       <Route
         element={
           <ProtectedRoute>

@@ -47,6 +47,10 @@ export type Reservation = {
   room?: Room
   primary_guest?: Guest
   guests?: Guest[]
+  payments?: Payment[]
+  services?: ReservationCharge[]
+  check_in?: CheckInRecord | null
+  check_out?: CheckOutRecord | null
 }
 
 export type PricingPreview = {
@@ -72,4 +76,59 @@ export type CalendarData = {
   from: string
   to: string
   rooms: CalendarRoom[]
+}
+
+export type Payment = {
+  id: string
+  amount: string
+  method: 'CASH' | 'CARD' | 'BANK_TRANSFER' | 'ONLINE' | 'OTHER'
+  status: 'PENDING' | 'COMPLETED' | 'FAILED' | 'REFUNDED' | 'CANCELLED'
+  transaction_reference: string | null
+  paid_at: string | null
+  refunded_at: string | null
+}
+
+export type ReservationCharge = {
+  id: string
+  description: string
+  quantity: string
+  unit_price: string
+  total: string
+  occurred_at: string
+}
+
+export type CheckInRecord = {
+  id: string
+  completed_at: string
+  keys_delivered: boolean
+  notes: string | null
+}
+
+export type CheckOutRecord = {
+  id: string
+  completed_at: string
+  keys_returned: boolean
+  condition_notes: string | null
+  damages_amount: string
+}
+
+export type PublicPreCheckInData = {
+  booking_code: string
+  check_in_date: string
+  check_out_date: string
+  room_name: string
+  expires_at: string
+  guest: {
+    first_name: string
+    last_name: string
+    birth_date: string | null
+    birth_place: string | null
+    nationality: string | null
+    email: string | null
+    phone: string | null
+    address: string | null
+    city: string | null
+    postal_code: string | null
+    country: string | null
+  }
 }
