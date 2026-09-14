@@ -18,6 +18,7 @@ class ReservationService
         private readonly AvailabilityService $availability,
         private readonly PricingService $pricing,
         private readonly ReservationStateService $states,
+        private readonly ReservationChargeService $charges,
     ) {}
 
     public function create(array $data): Reservation
@@ -75,6 +76,8 @@ class ReservationService
                 ...$money,
             ]);
             $this->syncGuests($reservation, $data);
+
+            $this->charges->recalculateTotals($reservation);
 
             return $reservation->fresh()->load('room', 'primaryGuest', 'guests');
         }, 3);

@@ -55,7 +55,7 @@ class ReservationController extends Controller
         Gate::authorize('view', $reservation);
 
         return response()->json([
-            'data' => $reservation->load('property', 'room.amenities', 'primaryGuest', 'guests'),
+            'data' => $reservation->load(\n                'property',\n                'room.amenities',\n                'primaryGuest',\n                'guests',\n                'payments.recorder',\n                'services.author',\n                'checkIn.operator',\n                'checkOut.operator',\n            ),
         ]);
     }
 

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reservation extends Model
 {
@@ -77,5 +79,30 @@ class Reservation extends Model
     public function guests(): BelongsToMany
     {
         return $this->belongsToMany(Guest::class)->withPivot('is_primary')->withTimestamps();
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(ReservationService::class);
+    }
+
+    public function checkIn(): HasOne
+    {
+        return $this->hasOne(CheckIn::class);
+    }
+
+    public function checkOut(): HasOne
+    {
+        return $this->hasOne(CheckOut::class);
+    }
+
+    public function preCheckInTokens(): HasMany
+    {
+        return $this->hasMany(PreCheckInToken::class);
     }
 }
