@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router'
 import { AppLayout } from '../layouts/AppLayout'
 import { CalendarPage } from '../pages/CalendarPage'
+import { CleaningPage } from '../pages/CleaningPage'
 import { DashboardPage } from '../pages/DashboardPage'
 import { GuestDetailPage } from '../pages/GuestDetailPage'
 import { GuestsPage } from '../pages/GuestsPage'
 import { LoginPage } from '../pages/LoginPage'
+import { MaintenancePage } from '../pages/MaintenancePage'
 import { PublicPreCheckInPage } from '../pages/PublicPreCheckInPage'
 import { ReservationDetailPage } from '../pages/ReservationDetailPage'
 import { ReservationFormPage } from '../pages/ReservationFormPage'
@@ -38,6 +40,8 @@ export function App() {
         <Route path="/reservations/:id" element={<ReservationDetailPage />} />
         <Route path="/guests" element={<GuestsPage />} />
         <Route path="/guests/:id" element={<GuestDetailPage />} />
+        <Route path="/cleaning" element={<CleaningPage />} />
+        <Route path="/maintenance" element={<MaintenancePage />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
