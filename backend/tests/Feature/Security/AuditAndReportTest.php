@@ -81,11 +81,13 @@ it('returns exact financial totals and a safe csv export', function (): void {
         ->assertJsonPath('data.payments_received', '50.00')
         ->assertJsonPath('data.outstanding', '120.00');
 
-    $this->get('/api/v1/reports/reservations.csv?'.$query)
+    $response = $this->get('/api/v1/reports/reservations.csv?'.$query)
         ->assertOk()
-        ->assertHeader('content-type', 'text/csv; charset=UTF-8')
-        ->assertSee($this->reservation->booking_code)
-        ->assertSee('Sara');
+        ->assertHeader('content-type', 'text/csv; charset=UTF-8');
+
+    expect($response->streamedContent())
+        ->toContain($this->reservation->booking_code)
+        ->toContain('Sara');
 });
 
 it('denies financial reports to operational cleaning users', function (): void {
