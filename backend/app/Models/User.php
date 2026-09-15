@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -39,9 +40,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
+    public function properties(): BelongsToMany
+    {
+        return $this->belongsToMany(Property::class)->withTimestamps();
+    }
+
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function hasRole(string $key): bool
     {
         return $this->roles()->where('key', $key)->exists();
+    }
+
+    public function belongsToProperty(Property|string $property): bool
+    {
+        $propertyId = $property instanceof Property ? $property->id : $property;
+
+        return $this->properties()->whereKey($propertyId)->exists();
     }
 
     public function isActive(): bool
