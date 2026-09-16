@@ -10,7 +10,7 @@ Applicazione web completa per gestire una casa vacanze da quattro camere, predis
 2. Attendi la preparazione automatica: dipendenze, database SQLite e dati demo vengono configurati senza comandi manuali.
 3. Quando si apre la scheda **PMS Casa Vacanze**, accedi con `admin@example.test` e password `Password123!`.
 
-La preview Codespaces è temporanea e privata al tuo account GitHub. Railway verrà usato per la versione sempre online.
+La preview Codespaces è temporanea: le porte vengono rese pubbliche solo mentre il Codespace è acceso, così frontend e API possono comunicare senza errori 401. Contiene esclusivamente dati demo. Railway verrà usato per la versione sempre online.
 
 ## Stack e architettura
 

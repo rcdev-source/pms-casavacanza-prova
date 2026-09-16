@@ -12,11 +12,13 @@
   "portsAttributes": {
     "5173": {
       "label": "PMS Casa Vacanze",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "openBrowser",
+      "visibility": "public"
     },
     "8000": {
       "label": "API Laravel",
-      "onAutoForward": "silent"
+      "onAutoForward": "silent",
+      "visibility": "public"
     }
   },
   "postCreateCommand": "bash scripts/codespaces-setup.sh",
