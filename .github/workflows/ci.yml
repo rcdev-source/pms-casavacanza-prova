@@ -76,3 +76,6 @@ jobs:
       - uses: actions/checkout@v4
       - run: cp .env.example .env && cp backend/.env.example backend/.env
       - run: docker compose config --quiet
+      - run: python -m json.tool .devcontainer/devcontainer.json > /dev/null
+      - run: bash -n scripts/codespaces-setup.sh scripts/codespaces-start.sh
+      - run: docker build --file .devcontainer/Dockerfile .devcontainer
