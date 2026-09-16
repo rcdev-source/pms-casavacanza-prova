@@ -2,6 +2,16 @@
 
 Applicazione web completa per gestire una casa vacanze da quattro camere, predisposta per più strutture. Include prenotazioni, disponibilità, ospiti, incassi, pre-check-in, soggiorni, pulizie, manutenzione, notifiche, audit e report.
 
+## Provalo subito su GitHub
+
+[![Apri in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/rcdev-source/pms-casavacanza-prova?quickstart=1)
+
+1. Premi il pulsante e scegli **Create codespace**.
+2. Attendi la preparazione automatica: dipendenze, database SQLite e dati demo vengono configurati senza comandi manuali.
+3. Quando si apre la scheda **PMS Casa Vacanze**, accedi con `admin@example.test` e password `Password123!`.
+
+La preview Codespaces è temporanea e privata al tuo account GitHub. Railway verrà usato per la versione sempre online.
+
 ## Stack e architettura
 
 - Laravel 12 / PHP 8.4, Sanctum, MySQL 8.4, Redis, queue e scheduler
